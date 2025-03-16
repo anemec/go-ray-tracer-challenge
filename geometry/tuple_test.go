@@ -181,3 +181,20 @@ func TestTuple_CrossProduct(t *testing.T) {
 
 	require.Equal(t, Tuple{1, -2, 1, VectorW}, sut)
 }
+
+func TestTuple_Color(t *testing.T) {
+	color := NewColor(-0.5, 0.4, 1.7)
+	require.Equal(t, Tuple{-0.5, 0.4, 1.7, ColorW}, color)
+}
+
+func TestTuple_MultiplyColor(t *testing.T) {
+	color1 := NewColor(1, 0.2, 0.4)
+	color2 := NewColor(0.9, 1, 0.1)
+
+	sut := color1.Hadamard(color2)
+
+	require.InDelta(t, 0.9, sut.X, 1e-5)
+	require.InDelta(t, 0.2, sut.Y, 1e-5)
+	require.InDelta(t, 0.04, sut.Z, 1e-5)
+	require.InDelta(t, ColorW, sut.W, 1e-5)
+}

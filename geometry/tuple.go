@@ -6,9 +6,9 @@ import (
 )
 
 const (
-	epsilon = 1e-5
 	VectorW = 0.0
 	PointW  = 1.0
+	ColorW  = 0.0
 )
 
 type Tuple struct {
@@ -21,10 +21,6 @@ func NewPoint(x, y, z float64) Tuple {
 
 func NewVector(x, y, z float64) Tuple {
 	return Tuple{x, y, z, VectorW}
-}
-
-func NewTuple(x, y, z, w float64) Tuple {
-	return Tuple{x, y, z, w}
 }
 
 func (t Tuple) IsPoint() bool {
@@ -56,6 +52,15 @@ func (t Tuple) Divide(s float64) Tuple {
 		panic("divide by zero")
 	}
 	return Tuple{t.X / s, t.Y / s, t.Z / s, t.W / s}
+}
+
+func (t Tuple) Multiply(u Tuple) Tuple {
+	return Tuple{
+		t.X * u.X,
+		t.Y * u.Y,
+		t.Z * u.Z,
+		t.W * u.W,
+	}
 }
 
 func (t Tuple) Magnitude() float64 {
@@ -92,10 +97,6 @@ func (t Tuple) Equals(u Tuple) bool {
 		equal(t.Y, u.Y) &&
 		equal(t.Z, u.Z) &&
 		equal(t.W, u.W)
-}
-
-func equal(a, b float64) bool {
-	return math.Abs(a-b) < epsilon
 }
 
 func (t Tuple) String() string {
