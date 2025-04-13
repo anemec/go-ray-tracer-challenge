@@ -144,3 +144,44 @@ func Test_MatrixMultiplyTuple(t *testing.T) {
 
 	require.Equal(t, expected, sut)
 }
+
+func Test_IdentityMatrix(t *testing.T) {
+	matrixValues := [][]float64{
+		{0, 1, 2, 4},
+		{1, 2, 4, 8},
+		{2, 4, 8, 16},
+		{4, 8, 16, 32},
+	}
+	matrix := NewMatrix(matrixValues)
+	sut := matrix.Multiply(Identity)
+
+	require.Equal(t, matrix, sut)
+}
+
+func Test_TransposeMatrix(t *testing.T) {
+	matrixValues := [][]float64{
+		{0, 9, 3, 0},
+		{9, 8, 0, 8},
+		{1, 8, 5, 3},
+		{0, 0, 5, 8},
+	}
+	matrix := NewMatrix(matrixValues)
+
+	expectedValues := [][]float64{
+		{0, 9, 1, 0},
+		{9, 8, 8, 0},
+		{3, 0, 5, 5},
+		{0, 8, 3, 8},
+	}
+	expectedMatrix := NewMatrix(expectedValues)
+
+	sut := matrix.Transpose()
+
+	require.Equal(t, expectedMatrix, sut)
+}
+
+func Test_TransposeIdentityMatrix(t *testing.T) {
+	identity := NewIdentity()
+	sut := identity.Transpose()
+	require.Equal(t, Identity, sut)
+}

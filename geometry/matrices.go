@@ -4,6 +4,12 @@ type Matrix struct {
 	m [][]float64
 }
 
+var Identity = NewMatrix([][]float64{{1, 0, 0, 0}, {0, 1, 0, 0}, {0, 0, 1, 0}, {0, 0, 0, 1}})
+
+func NewIdentity() *Matrix {
+	return NewMatrix([][]float64{{1, 0, 0, 0}, {0, 1, 0, 0}, {0, 0, 1, 0}, {0, 0, 0, 1}})
+}
+
 func NewMatrix(matrixValues [][]float64) *Matrix {
 	return &Matrix{
 		m: create(matrixValues),
@@ -71,4 +77,19 @@ func (m *Matrix) Equal(m2 *Matrix) bool {
 		}
 	}
 	return true
+}
+
+func (m *Matrix) Transpose() *Matrix {
+	newMatrixValues := make([][]float64, len(m.m))
+	for i := 0; i < len(m.m); i++ {
+		newRow := make([]float64, len(m.m))
+		newMatrixValues[i] = newRow
+	}
+
+	for i, v := range m.m {
+		for j, val := range v {
+			newMatrixValues[j][i] = val
+		}
+	}
+	return NewMatrix(newMatrixValues)
 }

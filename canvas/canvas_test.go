@@ -15,10 +15,10 @@ func TestCanvas_NewCanvas(t *testing.T) {
 	for i := 0; i < canvas.Height; i++ {
 		for j := 0; j < canvas.Width; j++ {
 			require.Equal(t, geometry.Tuple{
-				0.0,
-				0.0,
-				0.0,
-				geometry.ColorW}, canvas.Pixels[i][j])
+				X: 0.0,
+				Y: 0.0,
+				Z: 0.0,
+				W: geometry.ColorW}, canvas.Pixels[i][j])
 		}
 	}
 }
@@ -45,9 +45,9 @@ func TestCanvas_PPMColors(t *testing.T) {
 	canvas.WritePixel(1, 2, geometry.NewColor(0, 0.5, 0))
 	canvas.WritePixel(2, 4, geometry.NewColor(-0.5, 0, 1))
 
-	expected := "255 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n" +
-		"0 0 0 0 0 0 0 128 0 0 0 0 0 0 0\n" +
-		"0 0 0 0 0 0 0 0 0 0 0 0 0 0 255\n"
+	expected := "255 0 0 0 0 0 0 0 0 0 0 0 0 0 0 \n" +
+		"0 0 0 0 0 0 0 128 0 0 0 0 0 0 0 \n" +
+		"0 0 0 0 0 0 0 0 0 0 0 0 0 0 255 \n"
 
 	require.Contains(t, canvas.ToPPM(), expected)
 }
